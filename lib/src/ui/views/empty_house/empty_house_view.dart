@@ -184,6 +184,7 @@ class _EmptyHouseViewState extends State<EmptyHouseView> {
                 height: SDP.sdp(50.0),
                 child: KChip(
                   isLoading: vm.isBusy,
+                  isDisabled: vm.isBusy,
                   padding: EdgeInsets.symmetric(
                     vertical: SDP.sdp(14.0),
                   ),

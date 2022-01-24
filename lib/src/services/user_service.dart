@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:resident_app/src/constant/config.dart';
 import 'package:resident_app/src/constant/session.dart';
 import 'package:resident_app/src/core/core_res.dart';
 import 'package:resident_app/src/core/core_service.dart';
@@ -90,6 +91,22 @@ class UserService extends CoreService {
   Future<ApiResult<CoreRes<Client>>> fetchClient() async {
     try {
       var result = await apiService.getClient();
+      return ApiResult.success(data: result);
+    } catch (e) {
+      return ApiResult.failure(
+        error: NetworkExceptions.getDioException(e),
+        message: NetworkExceptions.getMessage(e),
+      );
+    }
+  }
+
+  Future<ApiResult<CoreRes<User>>> fetchContactEmergency(User user) async {
+    try {
+      var result = await apiService.getContactEmergency(
+        roleName: Config.chief,
+        clientId: user.client?.clientId,
+      );
+      saveUser(result.data?.first);
       return ApiResult.success(data: result);
     } catch (e) {
       return ApiResult.failure(

@@ -61,4 +61,10 @@ abstract class ApiService {
 
   @GET("client")
   Future<CoreRes<Client>> getClient();
+
+  @GET("user")
+  Future<CoreRes<User>> getContactEmergency({
+    @Query('role_name') String? roleName,
+    @Query('client_id') int? clientId,
+  });
 }

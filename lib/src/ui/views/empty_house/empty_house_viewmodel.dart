@@ -56,6 +56,7 @@ class EmptyHouseViewModel extends BaseViewModel with CoreViewModel {
   }
 
   Future<ResultState<CoreResSingle>> getEmptyHouse() async {
+    setBusy(true);
     user = await _userService.getUser();
     var result = await _homeService.createEmptyHouse(
       user?.cluster?.clusterId.toString() ?? '',
@@ -64,6 +65,7 @@ class EmptyHouseViewModel extends BaseViewModel with CoreViewModel {
       untilDate ?? '',
       noteDateController.text,
     );
+    setBusy(false);
     return result.when(
       success: (CoreResSingle data) async {
         showSuccess();

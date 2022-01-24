@@ -1,5 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resident_app/src/helpers/scalable_dp_helper.dart';
 import 'package:resident_app/src/ui/shared/colors.dart';
@@ -31,7 +32,7 @@ class _MainViewState extends State<MainView> {
         floatingActionButton: Visibility(
           visible: MediaQuery.of(context).viewInsets.bottom == 0.0,
           child: InkWell(
-            onTap: () => vm.emergencyCall(),
+            onTap: () => vm.getContact(),
             child: Container(
               width: SDP.sdp(112.0),
               decoration: BoxDecoration(
@@ -46,15 +47,24 @@ class _MainViewState extends State<MainView> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(SDP.sdp(13.0)),
+                padding: EdgeInsets.all(SDP.sdp(10.0)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.call,
-                      size: SDP.sdp(14.0),
-                      color: Colors.white,
-                    ),
+                    vm.isBusy
+                        ? SizedBox(
+                            width: SDP.sdp(14.0),
+                            height: SDP.sdp(14.0),
+                            child: const SpinKitFadingCircle(
+                              color: Colors.white,
+                              size: 14.0,
+                            ),
+                          )
+                        : Icon(
+                            Icons.call,
+                            size: SDP.sdp(14.0),
+                            color: Colors.white,
+                          ),
                     horizontalSpace(SDP.sdp(4.0)),
                     Text(
                       'Emergency',
